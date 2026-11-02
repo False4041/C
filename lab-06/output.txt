@@ -1,0 +1,16 @@
+Factorial 120 Fib 55
+Balanced 1
+Balanced 0
+Balanced 1
+Balanced 0
+1 2 
+1 3 
+1 4 
+2 3 
+2 4 
+3 4 
+n bubble_us insertion_us selection_us recursive_us
+100 15 4 12 5
+500 260 47 130 86
+1000 1048 210 391 291
+Range

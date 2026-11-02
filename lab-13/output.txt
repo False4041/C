@@ -1,0 +1,10 @@
+kruskal_ns prim_ns
+1700 3800
+Cost 4.5 Prim 4.5
+2 3 1
+0 1 1.5
+1 2 2
+Second 5.5
+2 3 1
+0 1 1.5
+0 2 3

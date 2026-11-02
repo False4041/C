@@ -1,0 +1,13 @@
+1 Add 2 List 3 Remove 4 Save 5 Load 6 Due 7 Person 0 Exit
+Added
+Added
+Added
+0 meeting Math 12 600 A1 Ann Bob Eve
+1 reminder Exam 12 660 15 Ann
+reminder Exam 12 660 15 Ann
+Saved
+Removed
+Loaded
+0 meeting Math 12 600 A1 Ann Bob Eve
+1 reminder Exam 12 660 15 Ann
+Error: Index

@@ -1,0 +1,4 @@
+n,bubble_us,insertion_us,selection_us,recursive_us
+100,15,4,12,5
+500,260,47,130,86
+1000,1048,210,391,291

@@ -1,0 +1,11 @@
+1 meeting "Math" 12 600 "A1" 2 "Ann" "Bob"
+1 reminder "Exam" 12 660 "15" 1 "Ann"
+7 0 "Eve"
+2
+6 12 650
+4 "events.txt"
+3 0
+5 "events.txt"
+2
+3 99
+0

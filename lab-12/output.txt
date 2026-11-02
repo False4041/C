@@ -1,0 +1,13 @@
+Paths
+0 1 3 
+0 2 3 
+Distances
+0 1 1 2 
+INF 0 INF 1 
+INF INF 0 1 
+INF INF INF 0 
+n source dijkstra_us floyd_us equal
+10 0 1 5 1
+20 6 6 27 1
+50 28 17 282 1
+100 4 50 1823 1

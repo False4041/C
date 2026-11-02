@@ -1,0 +1,20 @@
+Items capacity: Value 7
+Sets
+1 2 
+2 3 
+1 4 
+3 4 
+Knapsack row (up to 50)
+0 0 3 4 6 7 
+Strings:
+LCS table (up to 20 x 20)
+0 0 0 0 0 0 0 
+0 0 0 0 1 1 1 
+0 1 1 1 1 2 2 
+0 1 1 2 2 2 2 
+0 1 1 2 2 3 3 
+0 1 2 2 2 3 3 
+0 1 2 2 3 3 4 
+0 1 2 2 3 4 4 
+LCS 4 BCBA
+Substring 2 AB

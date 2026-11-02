@@ -1,0 +1,7 @@
+Text:
+Pattern:
+Prefix 0 0 1 2 3 
+Positions 0 2 
+Best prefix 5
+Suffix prefix 0
+Shift: Rotated ababacab
