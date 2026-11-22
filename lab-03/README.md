@@ -36,7 +36,7 @@ size/capacity/const operator[] O(1). Копирование обычно O(1), �
 
 ## Результат
 
-[Текст вывода](output.txt) и снимок демонстрационного запуска в компиляторе C++.
+[Текст вывода](output.txt) и скриншот запуска в [OnlineGDB](https://www.onlinegdb.com/online_c++_compiler) в режиме C++17.
 
 ![Скриншот вывода программы](output.jpg)
 

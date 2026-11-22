@@ -36,7 +36,7 @@ size/empty/push_front/pop_front/push_back O(1). find/at/insert/erase по инд
 
 ## Результат
 
-[Текст вывода](output.txt) и снимок демонстрационного запуска в компиляторе C++.
+[Текст вывода](output.txt) и скриншот запуска в [OnlineGDB](https://www.onlinegdb.com/online_c++_compiler) в режиме C++17.
 
 ![Скриншот вывода программы](output.jpg)
 

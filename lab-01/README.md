@@ -36,7 +36,7 @@ total, instance: O(1); add фильма: O(m) из-за проверки дуб�
 
 ## Результат
 
-[Текст вывода](output.txt) и снимок демонстрационного запуска в компиляторе C++.
+[Текст вывода](output.txt) и скриншот запуска в [OnlineGDB](https://www.onlinegdb.com/online_c++_compiler) в режиме C++17.
 
 ![Скриншот вывода программы](output.jpg)
 

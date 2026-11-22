@@ -7,7 +7,7 @@ INF 0 INF 1
 INF INF 0 1 
 INF INF INF 0 
 n source dijkstra_us floyd_us equal
-10 0 0 3 1
-20 6 4 20 1
-50 28 12 160 1
-100 4 29 1545 1
+10 0 4 20 1
+20 6 19 161 1
+50 28 72 2862 1
+100 4 202 23934 1
