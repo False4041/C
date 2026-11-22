@@ -1,5 +1,5 @@
 kruskal_ns prim_ns
-1700 3800
+5800 5500
 Cost 4.5 Prim 4.5
 2 3 1
 0 1 1.5

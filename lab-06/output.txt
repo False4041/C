@@ -10,7 +10,7 @@ Balanced 0
 2 4 
 3 4 
 n bubble_us insertion_us selection_us recursive_us
-100 15 4 12 5
-500 260 47 130 86
-1000 1048 210 391 291
+100 11 3 8 3
+500 186 43 95 63
+1000 897 112 341 199
 Range
