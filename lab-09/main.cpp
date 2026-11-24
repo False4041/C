@@ -15,6 +15,7 @@ class BST {
     };
     Node *root = nullptr;
     static Node *add(Node *p, int x) {
+        // insert new leaf
         if (!p)
             return new Node{x};
         if (x < p->key)
@@ -32,10 +33,12 @@ class BST {
             p->right = del(p->right, x);
         else {
             if (!p->left || !p->right) {
+                // replace with child
                 auto q = p->left ? p->left : p->right;
                 delete p;
                 return q;
             }
+            // right subtree minimum
             auto q = p->right;
             while (q->left)
                 q = q->left;
@@ -51,6 +54,7 @@ class BST {
             delete p;
         }
     }
+    // depth first traversal
     static void walk(Node *p, Order order) {
         if (!p)
             return;
@@ -69,6 +73,7 @@ class BST {
     static int range(Node *p, int lo, int hi) {
         if (!p)
             return 0;
+        // skip outside branches
         if (p->key < lo)
             return range(p->right, lo, hi);
         if (p->key > hi)
@@ -99,6 +104,7 @@ class BST {
         walk(root, order);
         cout << '\n';
     }
+    // breadth first traversal
     void levelOrder() const {
         queue<Node *> q;
         if (root)
@@ -114,6 +120,7 @@ class BST {
         }
         cout << '\n';
     }
+    // record search path
     vector<int> path(int x) const {
         vector<int> v;
         auto p = root;

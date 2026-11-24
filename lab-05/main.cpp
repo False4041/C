@@ -26,6 +26,7 @@ class Stack {
     int getMiddle() const {
         if (isEmpty())
             throw out_of_range("Empty");
+        // earlier middle index
         return a[(a.size() - 1) / 2];
     }
 };
@@ -70,6 +71,7 @@ class Queue {
             last = nullptr;
         return x;
     }
+    // split by position
     void split(Queue &odd, Queue &even) {
         if (this == &odd || this == &even || &odd == &even)
             throw invalid_argument("Alias");
@@ -93,6 +95,7 @@ class Deque {
     void insertAt(size_t i, int x) {
         if (i > a.size())
             throw out_of_range("Index");
+        // shift elements right
         a.insert(a.begin() + i, x);
     }
     void push_front(int x) {
@@ -129,6 +132,7 @@ class PriorityQueue {
     bool isEmpty() const {
         return a.empty();
     }
+    // heap property
     static bool isHeap(const vector<int> &v) {
         for (size_t i = 1; i < v.size(); ++i)
             if (v[(i - 1) / 2] < v[i])
@@ -138,6 +142,7 @@ class PriorityQueue {
     void push(int x) {
         a.push_back(x);
         size_t i = a.size() - 1;
+        // sift up
         while (i && a[(i - 1) / 2] < a[i]) {
             swap(a[i], a[(i - 1) / 2]);
             i = (i - 1) / 2;
@@ -153,6 +158,7 @@ class PriorityQueue {
         a[0] = a.back();
         a.pop_back();
         size_t i = 0;
+        // sift down
         while (2 * i + 1 < a.size()) {
             size_t j = 2 * i + 1;
             if (j + 1 < a.size() && a[j + 1] > a[j])

@@ -8,11 +8,13 @@ void quickSort(std::vector<int>& values, int left, int right) {
     if (left >= right)
         return;
 
+    // choose middle pivot
     int pivot = values[left + (right - left) / 2];
     int less = left;
     int current = left;
     int greater = right;
 
+    // three part partition
     while (current <= greater) {
         if (values[current] < pivot) {
             std::swap(values[less], values[current]);
@@ -26,6 +28,7 @@ void quickSort(std::vector<int>& values, int left, int right) {
         }
     }
 
+    // skip equal values
     quickSort(values, left, less - 1);
     quickSort(values, greater + 1, right);
 }
@@ -42,6 +45,7 @@ int main() {
 
     for (int n : {100, 1000, 10000}) {
         std::cout << n;
+        // vary duplicate frequency
         for (int distinct : {100000, 5}) {
             std::vector<int> values(n);
             for (int& value : values)

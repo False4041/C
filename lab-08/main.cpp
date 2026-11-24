@@ -20,8 +20,10 @@ class HashTable {
     size_t hash(int key) const {
         auto size = static_cast<long long>(slots.size());
         auto index = key % size;
+        // handle negative keys
         return static_cast<size_t>(index < 0 ? index + size : index);
     }
+    // linear probing
     size_t findIndex(int key) const {
         size_t index = hash(key);
         for (size_t i = 0; i < slots.size(); ++i) {
@@ -47,6 +49,7 @@ class HashTable {
             return;
         }
         index = hash(key);
+        // find reusable slot
         for (size_t i = 0; i < slots.size(); ++i) {
             if (slots[index].state != Filled) {
                 slots[index] = {key, value, Filled};
@@ -64,10 +67,12 @@ class HashTable {
         size_t index = findIndex(key);
         if (index == slots.size())
             return false;
+        // mark as deleted
         slots[index].state = Deleted;
         return true;
     }
 };
+// binary search bounds
 int bound(const vector<int> &a, int x, bool upper) {
     int l = 0, r = int(a.size());
     while (l < r) {
@@ -80,6 +85,7 @@ int bound(const vector<int> &a, int x, bool upper) {
     return l;
 }
 int count(const vector<int> &a, int x) {
+    // equal range length
     return bound(a, x, true) - bound(a, x, false);
 }
 int main() {

@@ -9,6 +9,7 @@ using namespace std;
 unsigned long long factorial(int n) {
     if (n < 0 || n > 20)
         throw out_of_range("Range");
+    // recursive base case
     return n < 2 ? 1 : n * factorial(n - 1);
 }
 unsigned long long fib(int n) {
@@ -21,6 +22,7 @@ bool brackets(const string &s, size_t &i, char end = 0) {
         char c = s[i++];
         if (c == '(' || c == '[' || c == '{') {
             char close = c == '(' ? ')' : c == '[' ? ']' : '}';
+            // match closing bracket
             if (!brackets(s, i, close))
                 return false;
         } else if (c == ')' || c == ']' || c == '}')
@@ -35,6 +37,7 @@ void combinations(int n, int k, int start, vector<int> &v) {
         cout << '\n';
         return;
     }
+    // choose next number
     for (int i = start; i <= n - k + 1; ++i) {
         v.push_back(i);
         combinations(n, k - 1, i + 1, v);
@@ -49,12 +52,14 @@ void bubble(vector<int> &a) {
                 swap(a[i - 1], a[i]);
                 changed = true;
             }
+        // stop when sorted
         if (!changed)
             break;
     }
 }
 void insertAt(vector<int> &a, size_t i) {
     int x = a[i];
+    // shift larger values
     while (i && a[i - 1] > x) {
         a[i] = a[i - 1];
         --i;
@@ -67,6 +72,7 @@ void insertion(vector<int> &a) {
 }
 void selection(vector<int> &a) {
     for (size_t i = 0; i < a.size(); ++i) {
+        // find smallest value
         size_t m = i;
         for (size_t j = i + 1; j < a.size(); ++j)
             if (a[j] < a[m])
@@ -77,6 +83,7 @@ void selection(vector<int> &a) {
 void recursiveInsertion(vector<int> &a, size_t n) {
     if (n < 2)
         return;
+    // sort smaller prefix
     recursiveInsertion(a, n - 1);
     insertAt(a, n - 1);
 }
@@ -105,6 +112,7 @@ int main() {
         sort(expected.begin(), expected.end());
         cout << n;
         for (auto algorithm : algorithms) {
+            // same input data
             auto a = input;
             auto start = chrono::steady_clock::now();
             algorithm(a);
