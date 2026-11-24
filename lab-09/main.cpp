@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <stdexcept>
 using namespace std;
+enum Order { Preorder, Inorder, Postorder };
+
 class BST {
     struct Node {
         int key;
@@ -49,16 +51,16 @@ class BST {
             delete p;
         }
     }
-    static void walk(Node *p, int mode) {
+    static void walk(Node *p, Order order) {
         if (!p)
             return;
-        if (mode == 0)
+        if (order == Preorder)
             cout << p->key << ' ';
-        walk(p->left, mode);
-        if (mode == 1)
+        walk(p->left, order);
+        if (order == Inorder)
             cout << p->key << ' ';
-        walk(p->right, mode);
-        if (mode == 2)
+        walk(p->right, order);
+        if (order == Postorder)
             cout << p->key << ' ';
     }
     static int height(Node *p) {
@@ -93,8 +95,8 @@ class BST {
             p = x < p->key ? p->left : p->right;
         return p;
     }
-    void traversal(int mode) const {
-        walk(root, mode);
+    void traversal(Order order) const {
+        walk(root, order);
         cout << '\n';
     }
     void levelOrder() const {
@@ -147,35 +149,31 @@ class BST {
     }
 };
 int main() {
-    BST t;
+    BST tree;
     mt19937 gen(12);
     for (int i = 0; i < 20; ++i)
-        t.insert(int(gen() % 100));
-    for (int m = 0; m < 3; ++m)
-        t.traversal(m);
-    t.levelOrder();
-    cout << "Min " << t.minValue() << " Max " << t.maxValue() << " Height " << t.height() << '\n';
-    cout << "Range " << t.range(20, 70) << '\n';
-    for (int x : t.path(t.maxValue()))
-        cout << x << ' ';
-    cout << '\n';
-    int x;
-    cout << "Remove: ";
-    if (!(cin >> x)) {
-        cerr << "Input\n";
+        tree.insert(int(gen() % 100));
+
+    cout << "Preorder: ";
+    tree.traversal(Preorder);
+    cout << "Inorder: ";
+    tree.traversal(Inorder);
+    cout << "Postorder: ";
+    tree.traversal(Postorder);
+    cout << "Level order: ";
+    tree.levelOrder();
+    cout << "Min: " << tree.minValue() << " Max: " << tree.maxValue()
+         << " Height: " << tree.height() << '\n';
+    cout << "Range [20, 70]: " << tree.range(20, 70) << '\n';
+    cout << "Path to max:";
+    for (int x : tree.path(tree.maxValue()))
+        cout << ' ' << x;
+    cout << "\nRemove: ";
+    int key;
+    if (!(cin >> key))
         return 1;
-    }
-    t.remove(x);
-    t.traversal(1);
-    BST check;
-    for (int v : {4, 2, 6, 1, 3, 5, 7})
-        check.insert(v);
-    check.remove(1);
-    check.remove(2);
-    check.remove(4);
-    if (check.search(1) || check.search(2) || check.search(4) || check.range(0, 9) != 4)
-        return 1;
-    BST empty;
-    empty.remove(0);
-    empty.levelOrder();
+    cout << key << " Found: " << tree.search(key) << '\n';
+    tree.remove(key);
+    cout << "After removal: ";
+    tree.traversal(Inorder);
 }

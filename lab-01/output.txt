@@ -1,8 +1,9 @@
-Count 0
-Dune: 18:00 20:00 
-Up: 16:00 
-Count 2
-Same 1
-Null movie
-Dune: 18:00 20:00 
-Count 0
+Page 1 created
+Page 2 created
+Document created
+1: Introduction
+2: Summary
+Document destroyed
+Page 2 destroyed
+Page 1 destroyed
+End

@@ -9,67 +9,63 @@ struct Student {
     int grade = 0;
 };
 class HashTable {
+    enum State { Empty, Filled, Deleted };
     struct Slot {
-        int key = 0, state = 0;
+        int key = 0;
         Student value;
+        State state = Empty;
     };
-    vector<Slot> a;
-    size_t used = 0;
-    size_t hash(int k) const {
-        return size_t((static_cast<long long>(k) % static_cast<long long>(a.size()) + a.size()) %
-                      a.size());
+    vector<Slot> slots;
+
+    size_t hash(int key) const {
+        auto size = static_cast<long long>(slots.size());
+        auto index = key % size;
+        return static_cast<size_t>(index < 0 ? index + size : index);
+    }
+    size_t findIndex(int key) const {
+        size_t index = hash(key);
+        for (size_t i = 0; i < slots.size(); ++i) {
+            const auto &slot = slots[index];
+            if (slot.state == Empty)
+                break;
+            if (slot.state == Filled && slot.key == key)
+                return index;
+            index = (index + 1) % slots.size();
+        }
+        return slots.size();
     }
 
   public:
-    explicit HashTable(size_t n) : a(n) {
-        if (!n)
+    explicit HashTable(size_t size) : slots(size) {
+        if (size == 0)
             throw invalid_argument("Size");
     }
-    void put(int k, Student v) {
-        size_t start = hash(k), free = a.size();
-        for (size_t t = 0; t < a.size(); ++t) {
-            size_t i = (start + t) % a.size();
-            if (a[i].state == 1 && a[i].key == k) {
-                a[i].value = v;
+    void put(int key, const Student &value) {
+        size_t index = findIndex(key);
+        if (index != slots.size()) {
+            slots[index].value = value;
+            return;
+        }
+        index = hash(key);
+        for (size_t i = 0; i < slots.size(); ++i) {
+            if (slots[index].state != Filled) {
+                slots[index] = {key, value, Filled};
                 return;
             }
-            if (a[i].state != 1 && free == a.size())
-                free = i;
-            if (a[i].state == 0)
-                break;
+            index = (index + 1) % slots.size();
         }
-        if (free == a.size())
-            throw overflow_error("Full");
-        a[free] = {k, 1, v};
-        ++used;
+        throw overflow_error("Full");
     }
-    const Student *get(int k) const {
-        size_t start = hash(k);
-        for (size_t t = 0; t < a.size(); ++t) {
-            auto &s = a[(start + t) % a.size()];
-            if (!s.state)
-                return nullptr;
-            if (s.state == 1 && s.key == k)
-                return &s.value;
-        }
-        return nullptr;
+    const Student *get(int key) const {
+        size_t index = findIndex(key);
+        return index == slots.size() ? nullptr : &slots[index].value;
     }
-    bool remove(int k) {
-        size_t start = hash(k);
-        for (size_t t = 0; t < a.size(); ++t) {
-            auto &s = a[(start + t) % a.size()];
-            if (!s.state)
-                return false;
-            if (s.state == 1 && s.key == k) {
-                s.state = 2;
-                --used;
-                return true;
-            }
-        }
-        return false;
-    }
-    size_t size() const {
-        return used;
+    bool remove(int key) {
+        size_t index = findIndex(key);
+        if (index == slots.size())
+            return false;
+        slots[index].state = Deleted;
+        return true;
     }
 };
 int bound(const vector<int> &a, int x, bool upper) {
@@ -87,14 +83,16 @@ int count(const vector<int> &a, int x) {
     return bound(a, x, true) - bound(a, x, false);
 }
 int main() {
-    cout << "Count " << count({1, 2, 2, 2, 5}, 2) << ' ' << count({}, 2) << '\n';
+    cout << "Count: " << count({1, 2, 2, 2, 5}, 2) << ' ' << count({}, 2) << '\n';
     HashTable h(3);
     h.put(1, {"Ann", 5});
     h.put(4, {"Bob", 4});
     h.remove(1);
     h.put(4, {"Bob", 5});
     h.put(-2, {"Eve", 3});
-    cout << h.get(4)->grade << ' ' << h.size() << ' ' << (h.get(1) == nullptr) << '\n';
+    cout << "Updated grade: " << h.get(4)->grade << '\n';
+    cout << "Reused slot: " << h.get(-2)->name << '\n';
+    cout << "Removed: " << (h.get(1) == nullptr) << '\n';
     cout << "n binary_us hash_us found\n";
     for (int n : {1000, 10000, 100000}) {
         vector<int> a(n);

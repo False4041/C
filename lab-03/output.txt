@@ -1,6 +1,4 @@
-Shared 2
-1 2 3 
-9 2 3 
-Safe 1
-Sizes 1 1
-Empty
+Size 3, capacity 4
+Original: 10 20 30 
+Copy: 10 30 
+Copy size 2, capacity 4

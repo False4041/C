@@ -93,10 +93,7 @@ class Deque {
     void insertAt(size_t i, int x) {
         if (i > a.size())
             throw out_of_range("Index");
-        a.push_back(x);
-        for (size_t j = a.size() - 1; j > i; --j)
-            a[j] = a[j - 1];
-        a[i] = x;
+        a.insert(a.begin() + i, x);
     }
     void push_front(int x) {
         insertAt(0, x);
@@ -116,9 +113,7 @@ class Deque {
     }
     int pop_front() {
         int x = front();
-        for (size_t i = 1; i < a.size(); ++i)
-            a[i - 1] = a[i];
-        a.pop_back();
+        a.erase(a.begin());
         return x;
     }
     int pop_back() {
@@ -171,57 +166,37 @@ class PriorityQueue {
     }
 };
 int main() {
-    Stack s;
+    Stack stack;
     for (int x : {1, 2, 3, 4})
-        s.push(x);
-    cout << "Middle " << s.getMiddle() << '\n';
-    s.pop();
-    cout << s.getMiddle() << '\n';
-    Queue q, o, e;
-    for (int i = 1; i <= 6; ++i)
-        q.enqueue(i);
-    q.split(o, e);
-    while (!o.isEmpty())
-        cout << o.dequeue() << ' ';
-    cout << '\n';
-    while (!e.isEmpty())
-        cout << e.dequeue() << ' ';
-    cout << '\n';
-    Deque d;
-    d.push_back(1);
-    d.push_back(3);
-    d.insertAt(1, 2);
-    d.push_front(0);
-    cout << d.pop_back() << '\n';
-    while (!d.isEmpty())
-        cout << d.pop_front() << ' ';
-    cout << '\n';
-    PriorityQueue p;
+        stack.push(x);
+    cout << "Stack middle: " << stack.getMiddle() << '\n';
+
+    Queue queue, odd, even;
+    for (int x : {10, 20, 30, 40, 50, 60})
+        queue.enqueue(x);
+    queue.split(odd, even);
+    cout << "Odd positions:";
+    while (!odd.isEmpty())
+        cout << ' ' << odd.dequeue();
+    cout << "\nEven positions:";
+    while (!even.isEmpty())
+        cout << ' ' << even.dequeue();
+
+    Deque deque;
+    deque.push_back(1);
+    deque.push_back(3);
+    deque.insertAt(1, 2);
+    deque.push_front(0);
+    cout << "\nDeque:";
+    while (!deque.isEmpty())
+        cout << ' ' << deque.pop_front();
+
+    PriorityQueue priority;
     for (int x : {3, 1, 5, 2})
-        p.push(x);
-    while (!p.isEmpty())
-        cout << p.pop() << ' ';
-    cout << '\n';
-    cout << PriorityQueue::isHeap({9, 7, 8, 1}) << ' ' << PriorityQueue::isHeap({1, 9}) << '\n';
-    try {
-        s = Stack();
-        s.pop();
-    } catch (const exception &x) {
-        cout << x.what() << '\n';
-    }
-    try {
-        q.dequeue();
-    } catch (const exception &x) {
-        cout << x.what() << '\n';
-    }
-    try {
-        d.insertAt(1, 0);
-    } catch (const exception &x) {
-        cout << x.what() << '\n';
-    }
-    try {
-        p.pop();
-    } catch (const exception &x) {
-        cout << x.what() << '\n';
-    }
+        priority.push(x);
+    cout << "\nPriority:";
+    while (!priority.isEmpty())
+        cout << ' ' << priority.pop();
+    cout << "\nIs heap: " << PriorityQueue::isHeap({9, 7, 8, 1}) << ' '
+         << PriorityQueue::isHeap({1, 9}) << '\n';
 }

@@ -1,8 +1,4 @@
-2 9 0
-0 1
-Hi
-Index
-n sparse_us stl_us sum
-1000 7785 297 499500
-5000 212318 1406 12497500
-10000 809788 2959 49995000
+Number 4: 3
+Word cat: 2
+Missing: 0
+Empty: 0

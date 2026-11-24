@@ -53,16 +53,17 @@ void bubble(vector<int> &a) {
             break;
     }
 }
-void insertion(vector<int> &a) {
-    for (size_t i = 1; i < a.size(); ++i) {
-        int x = a[i];
-        size_t j = i;
-        while (j && a[j - 1] > x) {
-            a[j] = a[j - 1];
-            --j;
-        }
-        a[j] = x;
+void insertAt(vector<int> &a, size_t i) {
+    int x = a[i];
+    while (i && a[i - 1] > x) {
+        a[i] = a[i - 1];
+        --i;
     }
+    a[i] = x;
+}
+void insertion(vector<int> &a) {
+    for (size_t i = 1; i < a.size(); ++i)
+        insertAt(a, i);
 }
 void selection(vector<int> &a) {
     for (size_t i = 0; i < a.size(); ++i) {
@@ -77,55 +78,41 @@ void recursiveInsertion(vector<int> &a, size_t n) {
     if (n < 2)
         return;
     recursiveInsertion(a, n - 1);
-    int x = a[n - 1];
-    size_t j = n - 1;
-    while (j && a[j - 1] > x) {
-        a[j] = a[j - 1];
-        --j;
-    }
-    a[j] = x;
+    insertAt(a, n - 1);
+}
+void recursiveSort(vector<int> &a) {
+    recursiveInsertion(a, a.size());
 }
 int main() {
-    cout << "Factorial " << factorial(5) << " Fib " << fib(10) << '\n';
-    for (string s : {"([]{})", "([)]", "", "(()"}) {
+    cout << "Factorial: " << factorial(5) << "\nFibonacci: " << fib(10) << '\n';
+    cout << "Brackets:";
+    for (string s : {"([]{})", "([)]", "(()"}) {
         size_t i = 0;
-        cout << "Balanced " << (brackets(s, i) && i == s.size()) << '\n';
+        cout << ' ' << brackets(s, i);
     }
-    vector<int> c;
-    combinations(4, 2, 1, c);
+    cout << "\nCombinations:\n";
+    vector<int> chosen;
+    combinations(4, 2, 1, chosen);
+
+    void (*algorithms[])(vector<int> &) = {bubble, insertion, selection, recursiveSort};
     mt19937 gen(12);
     cout << "n bubble_us insertion_us selection_us recursive_us\n";
     for (int n : {100, 500, 1000}) {
-        vector<int> a(n);
-        for (int &x : a)
+        vector<int> input(n);
+        for (int &x : input)
             x = int(gen() % 1000);
+        auto expected = input;
+        sort(expected.begin(), expected.end());
         cout << n;
-        for (int mode = 0; mode < 4; ++mode) {
-            auto b = a;
-            auto t = chrono::steady_clock::now();
-            if (mode == 0)
-                bubble(b);
-            if (mode == 1)
-                insertion(b);
-            if (mode == 2)
-                selection(b);
-            if (mode == 3)
-                recursiveInsertion(b, b.size());
-            auto us = chrono::duration_cast<chrono::microseconds>(chrono::steady_clock::now() - t)
-                          .count();
-            auto expected = a;
-            sort(expected.begin(), expected.end());
-            if (b != expected)
+        for (auto algorithm : algorithms) {
+            auto a = input;
+            auto start = chrono::steady_clock::now();
+            algorithm(a);
+            auto elapsed = chrono::steady_clock::now() - start;
+            if (a != expected)
                 return 1;
-            cout << ' ' << us;
+            cout << ' ' << chrono::duration_cast<chrono::microseconds>(elapsed).count();
         }
         cout << '\n';
-    }
-    vector<int> empty;
-    recursiveInsertion(empty, 0);
-    try {
-        factorial(21);
-    } catch (const exception &e) {
-        cout << e.what() << '\n';
     }
 }
