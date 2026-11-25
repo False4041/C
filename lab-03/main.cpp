@@ -10,6 +10,7 @@ class Vector {
     std::size_t space = 0;
     std::unique_ptr<T[]> data;
 
+    // увеличение вместимости массива
     void grow() {
         std::size_t newSpace = space == 0 ? 1 : 2 * space;
         auto newData = std::make_unique<T[]>(newSpace);
@@ -22,6 +23,7 @@ class Vector {
 public:
     Vector() = default;
 
+    // отдельная память копии
     Vector(const Vector& other) : length(other.length), space(other.space) {
         if (space != 0)
             data = std::make_unique<T[]>(space);
@@ -29,6 +31,7 @@ public:
             data[i] = other.data[i];
     }
 
+    // копирование и обмен
     Vector& operator=(const Vector& other) {
         Vector copy(other);
         data.swap(copy.data);
@@ -47,6 +50,7 @@ public:
     void erase(std::size_t index) {
         if (index >= length)
             throw std::out_of_range("Index");
+        // сдвиг элементов влево
         for (std::size_t i = index; i + 1 < length; ++i)
             data[i] = data[i + 1];
         data[length - 1] = T{};

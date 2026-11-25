@@ -4,6 +4,7 @@
 template <class T>
 int countIf(const T arr[], int n, const T& value) {
     int count = 0;
+    // подсчёт равных элементов
     for (int i = 0; i < n; ++i) {
         if (arr[i] == value)
             ++count;
@@ -12,6 +13,7 @@ int countIf(const T arr[], int n, const T& value) {
 }
 
 int main() {
+    // проверка двух типов
     int numbers[] = {4, 2, 4, 1, 4};
     std::string words[] = {"cat", "dog", "cat"};
 
