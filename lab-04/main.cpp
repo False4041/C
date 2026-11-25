@@ -15,7 +15,6 @@ class SinglyLinkedList {
 public:
     SinglyLinkedList() = default;
 
-    // copy each node
     SinglyLinkedList(const SinglyLinkedList& other) {
         SinglyLinkedList copy;
         for (Node* node = other.head; node != nullptr; node = node->next)
@@ -31,7 +30,6 @@ public:
         return *this;
     }
 
-    // release all nodes
     ~SinglyLinkedList() {
         while (head != nullptr) {
             Node* node = head;
@@ -44,7 +42,6 @@ public:
         return head == nullptr;
     }
 
-    // attach new tail
     void push_back(const T& value) {
         Node* node = new Node{value, nullptr};
         if (empty())
@@ -63,7 +60,6 @@ public:
             head = nullptr;
             tail = nullptr;
         } else {
-            // find previous node
             Node* previous = head;
             while (previous->next != tail)
                 previous = previous->next;

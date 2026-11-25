@@ -4,7 +4,6 @@
 template <class T>
 int countIf(const T arr[], int n, const T& value) {
     int count = 0;
-    // count matching values
     for (int i = 0; i < n; ++i) {
         if (arr[i] == value)
             ++count;
@@ -13,7 +12,6 @@ int countIf(const T arr[], int n, const T& value) {
 }
 
 int main() {
-    // test both types
     int numbers[] = {4, 2, 4, 1, 4};
     std::string words[] = {"cat", "dog", "cat"};
 
